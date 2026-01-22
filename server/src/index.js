@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-// const age = 23;
+const age = 23;
 app.get('/products', (req, res) => {
     const products = [
         { id: 1, name: 'Product A', price: 100 },
