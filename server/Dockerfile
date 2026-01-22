@@ -6,7 +6,7 @@ COPY package*.json .
 RUN npm install
 
 COPY src src/
-COPY .env .env
+ENV PORT=3000
 
 EXPOSE 3000
 

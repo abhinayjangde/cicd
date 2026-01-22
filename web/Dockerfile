@@ -10,9 +10,9 @@ RUN npm install
 
 COPY src src/
 COPY public public/
-COPY .env .env
 COPY index.html .
 
+ENV VITE_API_URL=http://localhost:3000
 
 RUN adduser --system nodejs && chown -R nodejs /app
 USER nodejs
