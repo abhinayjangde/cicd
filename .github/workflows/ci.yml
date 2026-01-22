@@ -1,0 +1,46 @@
+name: build-and-lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Run linting backend
+        working-directory: server
+        run: npm run lint -- --max-warnings=0
+
+      - name: Install dependencies frontend
+        working-directory: web
+        run: npm ci
+
+      - name: Run linting frontend
+        working-directory: web
+        run: npm run lint -- --max-warnings=0
+
+      - name: Build backend
+        run: docker build -t backend ./server
+
+      - name: Build frontend
+        run: docker build -t frontend ./web
+
+        
